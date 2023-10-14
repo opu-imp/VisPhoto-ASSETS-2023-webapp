@@ -1,0 +1,15 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+/media
+
+# PostgreSQL
+/db_data
+
+# Images
+/uploads
+/users
+vfn/
