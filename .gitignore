@@ -13,3 +13,7 @@ db.sqlite3
 /uploads
 /users
 vfn/
+
+# Secrets
+VisPhoto-537053e46c2f.json
+rclone.conf
