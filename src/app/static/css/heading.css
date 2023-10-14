@@ -1,0 +1,41 @@
+@charset "utf-8";
+
+main h1 {
+  padding: 15px 10px;
+  border-bottom: 4px solid #666;
+  background: #fff;
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+main h2 {
+  padding: 10px 10px;
+  border-bottom: 2px solid #081;
+  border-left: 15px solid #081;
+  background: #efe;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+main h3 {
+  margin-left: 10px;
+  padding: 5px 15px;
+  border-left: 20px solid #eb0;
+  border-radius: 10px 0px 0px 10px;
+  background: #eee;
+  color: #333;
+  font-size: 1.0rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+main h4, main h5, main h6 {
+  color: #333;
+  font-size: 1.0rem;
+  font-weight: bold;
+  line-height: 1.2;
+}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+切り取り結果
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="single-column">
+  <main>
+    <section>
+      <!-- <h1>切り取り結果</h1> -->
+      <h1>Result</h1>
+
+      <!-- <ul>
+        <li>あなたの希望に沿った写真を作成しました．</li>
+        <li>「物体選択に戻る」ボタンを押すと，前のページに戻ります．</li>
+        <li>「画像一覧に戻る」ボタンを押すと，画像を選ぶページに戻ります．</li>
+      </ul> -->
+
+      <!-- <p>切り取り結果に含まれる物体: {{ gcp_result }}</p> -->
+      <p>Photo includes: {{ gcp_result }}</p>
+      <p><img src="{{ image_url }}"></p>
+      <!-- <p><a class="btn-gray" href="{{ image_url }}" download="result.jpg">写真をダウンロード</a></p> -->
+      <p><a class="btn-gray" href="{{ image_url }}" download="result.jpg">Download</a></p>
+
+      <p>
+        <!-- <a href="{% url 'photo-detail' photo.id %}">物体選択に戻る</a>
+        <a href="{% url 'photo-list' %}">画像一覧に戻る</a> -->
+        <a href="{% url 'photo-detail' photo.id %}">Go back to object selection</a>
+        <a href="{% url 'photo-list' %}">Go back to photo selection</a>
+      </p>
+    </section>
+  </main>
+</div>
+{% endblock %}
