@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+画像一覧
+{% endblock %}
+
+{% block head %}
+<script type="text/javascript">
+  const playSound = (idx) => {
+    for (let i = 1; i <= {{ photo_list|length }}; i++) {
+      const audio = document.getElementById('audio-' + i);
+      audio.pause();
+      audio.currentTime = 0;
+    }
+    const audio = document.getElementById('audio-' + idx);
+    audio.play();
+  };
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="single-column">
+  <main>
+    <section>
+      <h1>画像一覧</h1>
+      <ul>
+        <li>撮影時に録音したボイスメモなどを参考にして画像を選んでください．</li>
+        <li>「音声再生」ボタンを押すと，写真撮影時に録音した音を聞けます．</li>
+        <li>「選択」ボタンを押すと，物体選択画面に進めます．</li>
+      </ul>
+
+      {% for photo, info in photo_list %}
+      <section>
+        <!-- <h2>画像 {{ info.index }}</h2> -->
+        <h2>Photo {{ info.index }}</h2>
+
+        <audio id="audio-{{ info.index }}" src="/media/{{ photo.user_name }}/{{ photo.title }}/audio.mp3"></audio>
+
+        <!-- <p>id: {{ photo.id }}</p> -->
+        <!-- <p>ボイスメモ: {{ info.voice_memo }}</p>
+        <p><button type="button" class="btn-gray" onclick="playSound('{{ info.index }}')">音声再生</button></p>
+        <p>切り取り結果に含まれる物体: {{ info.gcp_result }}</p> -->
+        <p>Voice memo: {{ info.voice_memo }}</p>
+        <p><button type="button" class="btn-gray" onclick="playSound('{{ info.index }}')">Play sound</button></p>
+        <p>Photo includes: {{ info.gcp_result }}</p>
+
+        <!-- <p><a class="btn-gray" href="/media/{{ photo.user_name }}/{{ photo.title }}/results/{{ photo.result_name }}/result.jpg" download="result.jpg">ダウンロード</a></p> -->
+        <p><a class="btn-gray" href="/media/{{ photo.user_name }}/{{ photo.title }}/results/{{ photo.result_name }}/result.jpg" download="result.jpg">Download</a></p>
+
+        <!-- <p>検出された物体: {{ info.detection_summary }}</p>
+        <p>撮影時刻: {{ photo.created_at | date:"Y年n月j日 H時i分" }}</p> -->
+        <p>Detected objects: {{ info.detection_summary }}</p>
+        <p>Datetime: {{ photo.created_at | date:"Y-n-j H:i" }}</p>
+
+        <!-- <p><a href="{% url 'photo-detail' photo.id %}">物体選択へ</a></p> -->
+        <p><a href="{% url 'photo-detail' photo.id %}">Go to object selection</a></p>
+
+        <p><img alt="切り取り結果" src="/media/{{ photo.user_name }}/{{ photo.title }}/results/{{ photo.result_name }}/result.jpg"></p>
+      </section>
+      {% endfor %}
+    </section>
+  </main>
+</div>
+{% endblock %}

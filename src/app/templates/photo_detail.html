@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Photo {{ photo.id }}
+{% endblock %}
+
+{% block head %}
+<script type="text/javascript">
+  const num_obj = {{ num_obj }};
+
+  const playSound = () => {
+    const audio = document.getElementById('ppp-mp3');
+    audio.currentTime = 0;
+    audio.play();
+  };
+</script>
+<script src="{% static 'js/api-key.js' %}"></script>
+<script src="{% static 'js/functions.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="single-column">
+  <main>
+    <section>
+      <h1>物体選択 画像 {{ photo.id }}</h1>
+
+      <ul>
+        <li>写真に含めたい物体を選んでください．</li>
+        <li>「切り取り」ボタンを押すと，写真が出力されます．処理には少し時間がかかる場合があります．</li>
+        <li>「画像一覧に戻る」ボタンを押すと，前のページに戻ります．</li>
+      </ul>
+
+      <p>
+        <!-- <button type="button" class=" btn-gray utterance-button">選択中の物体を確認</button>
+        <button type="button" class="btn-gray record-button">音声検索</button> -->
+        <button type="button" class=" btn-gray utterance-button">Confirm selecting objects</button>
+        <button type="button" class="btn-gray record-button">Voice search</button>
+        <a style="display: none">ジャンプ</a>
+      </p>
+
+      <!-- <p>{{ photo.title }}</p> -->
+      <!-- <p>{{ photo.created_at | date:"Y/m/d H:i:s" }}</p> -->
+      <p><img alt="全方位画像" src="/media/{{ photo.user_name }}/{{ photo.title }}/thumbnail.jpg"></p>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        {% for k, v in objects.items %}
+        <section>
+          {% if v.objects|length %}
+          <!-- <h2>{{ v.clock }}時方向</h2> -->
+          <h2>{{ v.clock }} o'clock</h2>
+          <p>
+            <!-- <button type="button" class=" btn-gray utterance-button">選択中の物体を確認</button>
+            <button type="button" class="btn-gray record-button">音声検索</button> -->
+            <button type="button" class=" btn-gray utterance-button">Confirm selecting objects</button>
+            <button type="button" class="btn-gray record-button">Voice search</button>
+            <a style="display: none">ジャンプ</a>
+          </p>
+          {% for item in v.objects %}
+          <h3 id="object-name-{{ item.index }}">{{ item.class }}</h3>
+          <p>
+            <input type="hidden" name="object{{ item.index }}" value="1">
+            <label>
+              <input type="checkbox" name="object{{ item.index }}" value="0">
+              <!-- <span style="margin-left: 5px;">含める</span> -->
+              <span style="margin-left: 5px;">include</span>
+            </label>
+          </p>
+          <!-- <ul>
+            <li><label><input type="radio" name="object{{ item.index }}" value="0"> 含める</label></li>
+            <li><label><input type="radio" name="object{{ item.index }}" value="1" checked="checked"> どちらでもよい</label></li>
+            <li><label><input type="radio" name="object{{ item.index }}" value="2"> 含めない</label></li>
+          </ul> -->
+          <!-- <ul>
+            <li><label><input type="radio" name="object{{ item.index }}" value="0"> include</label></li>
+            <li><label><input type="radio" name="object{{ item.index }}" value="1" checked="checked"> don't care</label></li>
+            <li><label><input type="radio" name="object{{ item.index }}" value="2"> exclude</label></li>
+          </ul> -->
+          {% endfor %}
+          {% else %}
+          <!-- <p>この方向には何もありません</p> -->
+          <!-- <p>Nothing in this direction</p> -->
+          {% endif %}
+        </section>
+        {% endfor %}
+
+        <!-- <button type="submit" class="btn-gray">切り取り</button> -->
+        <p><button type="submit" id="submit-button" class="btn-gray">切り取り</button></p>
+      </form>
+      <p><a href="{% url 'photo-list' %}">画像一覧に戻る</a></p>
+    </section>
+  </main>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13.6
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+        POSTGRES_DB: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: password
+
+  sync:
+    build: ./docker/sync
+    command: python dummy.py
+    environment:
+      TZ: 'Asia/Tokyo'
+      GOOGLE_APPLICATION_CREDENTIALS: '/code/auth/VisPhoto-537053e46c2f.json'
+    volumes:
+      - ./src/sync:/code
+      - ./src/sync/rclone:/root/.config/rclone
+      - ./uploads/:/uploads
+      - ./users:/users
+
+  app:
+    build: ./docker/app
+    command: python manage.py runserver 0.0.0.0:80
+    environment:
+      TZ: 'Asia/Tokyo'
+      GOOGLE_APPLICATION_CREDENTIALS: '/code/auth/VisPhoto-537053e46c2f.json'
+    ports:
+      - 8080:80
+    volumes:
+      - ./src/app:/code
+      - ./users:/media
+    depends_on:
+      - db
