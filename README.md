@@ -9,8 +9,34 @@ VisPhoto generates a photograph by outputting the cropped region that the user w
 To help the user to determine which region to crop, our system applies an object detection technique to the image and provides the user with information on which objects exist in which direction.
 
 
-## How to Run the application
+## Source code overview
 
+The structure of this project is shown below.
+The `src` directory contains 2 apps: `sync` and `web`.
+
+```
+.
+├── README.md
+├── docker
+├── docker-compose.yml
+└── src
+    ├── sync
+    └── web
+```
+
+`sync`: batch application that periodically downloads omnidirectional camera images from Google Drive along with object detection and speech recognition results.
+
+`web`: web application to crop the user's desired area from the omnidirectional image.
+
+
+## Requirements
+
+The applications depend on [Google Cloud API](https://cloud.google.com/apis). Thus, you should prepare your own API credentaial before starting.
+
+In addition, `sync` app uses [Rclone](https://rclone.org/) to download files from Google Drive, so you need to set up `rclone.conf` for your Google account.
+
+
+## How to run the application
 
 1. Clone this repo to your local machine.
 ```ShellSession
