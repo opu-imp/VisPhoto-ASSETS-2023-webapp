@@ -26,7 +26,7 @@ The `src` directory contains 2 apps: `sync` and `web`.
 
 `sync`: batch application that periodically downloads omnidirectional camera images from Google Drive along with object detection and speech recognition results.
 
-`web`: web application to crop the user's desired area from the omnidirectional image.
+`web`: web application to crop the user's desired area from the omnidirectional camera image.
 
 
 ## Requirements
