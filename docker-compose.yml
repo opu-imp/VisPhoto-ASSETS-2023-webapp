@@ -24,8 +24,8 @@ services:
       - ./uploads/:/uploads
       - ./users:/users
 
-  app:
-    build: ./docker/app
+  web:
+    build: ./docker/web
     command: python manage.py runserver 0.0.0.0:80
     environment:
       TZ: 'Asia/Tokyo'
@@ -33,7 +33,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./src/app:/code
+      - ./src/web:/code
       - ./users:/media
     depends_on:
       - db
