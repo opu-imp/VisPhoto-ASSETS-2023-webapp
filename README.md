@@ -43,11 +43,21 @@ In addition, `sync` app uses [Rclone](https://rclone.org/) to download files fro
 % git clone git@github.com:opu-imp/VisPhoto-ASSETS-2023-tfcam.git visphoto-webapp
 ```
 
-2. Launch the application.
+2. Place your Google Cloud API credentails.
+```ShellSession
+$ cp your-api-secret.json /src/sync/auth/VisPhoto-537053e46c2f.json
+$ cp your-api-secret.json /src/web/auth/VisPhoto-537053e46c2f.json
+```
 
+3. Place your `rclone.conf`.
+```ShellSession
+$ mv rclone.conf src/sync/rclone
+```
+
+4. Launch the application.
 ```ShellSession
 % cd visphoto-webapp
 % docker compose up -d
 ```
 
-3. You can access the site from http://localhost:8080
+5. You can access the site from http://localhost:8080
